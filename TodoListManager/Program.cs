@@ -78,8 +78,21 @@ namespace TodoListManager
                 case "-p"://preview
                     Console.Clear();
                     Console.WriteLine("----Preview----");
-                    Console.WriteLine("Title: " + titleInput);
-                    Console.WriteLine("Note: \n" + noteInput);
+                    Console.WriteLine("Title : " + titleInput);
+
+                    
+                    if (!String.IsNullOrEmpty(noteInput))
+                    {
+                        string[] sep = noteInput.Split('\n');
+                        Console.WriteLine("Note : " + sep[0]);
+                        for (int i = 0; i < sep.Length; i++)
+                        {//                    Note : 
+                            Console.WriteLine("       " + sep[i]);
+                        }
+                    } else {
+                        Console.WriteLine("Note : ");
+                    }
+                    
                     Console.Write("\n\n\n\nPress any key to return");
                     Console.Read();
                     break;
