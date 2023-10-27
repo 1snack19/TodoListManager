@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace TodoListManager
 {
@@ -34,6 +35,17 @@ namespace TodoListManager
             }
         }
 
+        public static string GetTextInput() {
+            string res = "";
+            string line;
+            while (!String.IsNullOrWhiteSpace(line = Console.ReadLine()))
+            {
+                res += line + "\n";
+            }
+
+            return res;
+        }
+
         public static void ReminderCreation() {
             Console.WriteLine("----Reminder Creation Menu----");
             Console.Write("Enter an option: ");
@@ -43,6 +55,9 @@ namespace TodoListManager
                 case "-b":
                     state = ConsoleState.Main;
                     break;
+                case "-n":
+                    
+                    break;
                 default:
                     Console.WriteLine("Invalid option");
                     break;
@@ -51,20 +66,22 @@ namespace TodoListManager
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("---Todo list manager---");
-            bool running = true;
-            while (running) {
-                switch (state)
-                {
-                    case ConsoleState.Main:
-                        MainUI();
-                        break;
-                    case ConsoleState.Creating:
-                        ReminderCreation();
-                        break;
-                }
-                Console.Clear();
-            }
+            //Console.WriteLine("---Todo list manager---");
+            //bool running = true;
+            //while (running) {
+            //    switch (state)
+            //    {
+            //        case ConsoleState.Main:
+            //            MainUI();
+            //            break;
+            //        case ConsoleState.Creating:
+            //            ReminderCreation();
+            //            break;
+            //    }
+            //    Console.Clear();
+            //}
+            Console.WriteLine("Enter a text: ");
+            Console.WriteLine(GetTextInput());
         }
     }
 }
