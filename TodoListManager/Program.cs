@@ -12,6 +12,7 @@ namespace TodoListManager
     {
         Main,
         Creating,
+        Exit,
     }
 
     
@@ -32,6 +33,9 @@ namespace TodoListManager
             {
                 case "-c":
                     state = ConsoleState.Creating;
+                    break;
+                case "-q":
+                    state = ConsoleState.Exit;
                     break;
                 default:
                     Console.WriteLine("Invalid option");
@@ -95,8 +99,9 @@ namespace TodoListManager
                     } else {
                         Console.WriteLine("Note : ");
                     }
-                    
-                    Console.Write("\n\n\n\nPress any key to return");
+
+                    Console.WriteLine("-------------------------------------");
+                    Console.Write("Press any key to return");
                     Console.Read();
                     break;
 
@@ -112,6 +117,8 @@ namespace TodoListManager
             bool running = true;
             while (running)
             {
+
+                Console.Clear();
                 switch (state)
                 {
                     case ConsoleState.Main:
@@ -120,8 +127,11 @@ namespace TodoListManager
                     case ConsoleState.Creating:
                         ReminderCreation();
                         break;
+                    case ConsoleState.Exit:
+                        Console.WriteLine("Exit!");
+                        running = false;
+                        break;
                 }
-                Console.Clear();
             }
 
         }
