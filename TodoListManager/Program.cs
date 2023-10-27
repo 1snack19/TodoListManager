@@ -10,7 +10,20 @@ namespace TodoListManager
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello worlds");
+            Console.WriteLine("---Todo list manager---");
+            bool running = true;
+            while (running) {
+                Console.Write("Choose an option: ");
+                string option = Console.ReadLine();
+                switch (option)
+                {
+                    case "-q":
+                        Console.WriteLine("Quitting!");
+                        running = false;
+                        break;
+                }
+            }
+
         }
     }
 }
