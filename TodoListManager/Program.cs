@@ -18,11 +18,12 @@ namespace TodoListManager
     internal class Program
     {
 
+        static string noteInput;
+
         static ConsoleState state = ConsoleState.Main;
         public static void MainUI()
         {
             Console.WriteLine("----Main Menu----");
-            //commm
             Console.Write("Enter an option: ");
             string input = Console.ReadLine();
             switch (input)
@@ -36,7 +37,7 @@ namespace TodoListManager
             }
         }
 
-        public static string GetTextInput() {
+        public static string ReadMultipleLines() {
             string res = "";
             string line;
             while (!String.IsNullOrWhiteSpace(line = Console.ReadLine()))
@@ -57,7 +58,9 @@ namespace TodoListManager
                     state = ConsoleState.Main;
                     break;
                 case "-n":
-                    
+                    Console.Clear();
+                    Console.WriteLine("----Enter a text----");
+                    noteInput = ReadMultipleLines();
                     break;
                 default:
                     Console.WriteLine("Invalid option");
@@ -67,22 +70,21 @@ namespace TodoListManager
 
         public static void Main(string[] args)
         {
-            //Console.WriteLine("---Todo list manager---");
-            //bool running = true;
-            //while (running) {
-            //    switch (state)
-            //    {
-            //        case ConsoleState.Main:
-            //            MainUI();
-            //            break;
-            //        case ConsoleState.Creating:
-            //            ReminderCreation();
-            //            break;
-            //    }
-            //    Console.Clear();
-            //}
-            Console.WriteLine("Enter a text: ");
-            Console.WriteLine(GetTextInput());
+            Console.WriteLine("---Todo list manager---");
+            bool running = true;
+            while (running)
+            {
+                switch (state)
+                {
+                    case ConsoleState.Main:
+                        MainUI();
+                        break;
+                    case ConsoleState.Creating:
+                        ReminderCreation();
+                        break;
+                }
+                Console.Clear();
+            }
         }
     }
 }
