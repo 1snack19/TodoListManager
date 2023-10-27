@@ -56,8 +56,11 @@ namespace TodoListManager
 
         public static void ReminderCreation() {
             Console.WriteLine("----Reminder Creation Menu----");
+            Console.WriteLine("-t = Title of the List");
+            Console.WriteLine("-n = Note the List");
+            Console.WriteLine("-d = Date");
+            Console.WriteLine("-p = Preview");
             Console.WriteLine("-b = Back");
-            Console.WriteLine("-n = Note");
             Console.Write("Enter an option: ");
             string input = Console.ReadLine();
             switch (input)
