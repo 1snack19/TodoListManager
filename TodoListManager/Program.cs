@@ -24,6 +24,7 @@ namespace TodoListManager
         public static void MainUI()
         {
             Console.WriteLine("----Main Menu----");
+            //Console.WriteLine("-c = Create a reminder");
             Console.Write("Enter an option: ");
             string input = Console.ReadLine();
             switch (input)
@@ -50,6 +51,8 @@ namespace TodoListManager
 
         public static void ReminderCreation() {
             Console.WriteLine("----Reminder Creation Menu----");
+            //Console.WriteLine("-b = Back");
+            //Console.WriteLine("-n = Note");
             Console.Write("Enter an option: ");
             string input = Console.ReadLine();
             switch (input)
