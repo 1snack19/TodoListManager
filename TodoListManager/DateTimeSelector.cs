@@ -26,7 +26,6 @@ namespace TodoListManager
         public void Run()
         {
             
-            
             string[] formats = { timeFormat, dateFormat, dateFormat + " " + timeFormat };
 
             while (true)//Get date
@@ -60,8 +59,7 @@ namespace TodoListManager
                 }
                
             }
-            
-            Console.WriteLine(_result.ToString(dateFormat + " " + timeFormat));
+
             _madeError = false;
 
         }
