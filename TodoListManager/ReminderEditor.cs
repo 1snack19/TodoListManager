@@ -1,39 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TodoListManager
 {
+
     class ReminderEditor
     {
 
+        public enum ResultType
+        {
+            Confirmed,
+            Canceled,
+        };
+
+        ResultType _resultType = ResultType.Canceled;
+
         bool _madeError = false;
 
-        Reminder _reminderInput;
+        Reminder _reminder;
 
         public ReminderEditor()
         {
-            _reminderInput = new Reminder();
+            _reminder = new Reminder();
         }
 
         public ReminderEditor(Reminder reminderInput)
         {
-            _reminderInput = reminderInput;
+            _reminder = reminderInput;
         }
 
         private void PrintPreview()
         {
             Console.Clear();
             Console.WriteLine("----Preview----");
-            Console.WriteLine("Title : " + _reminderInput.title);
-            Console.WriteLine("Datetime : " + _reminderInput.datetime.ToString(DateTimeSelector.dateFormat + " " + DateTimeSelector.timeFormat));
+            Console.WriteLine("Title : " + _reminder.title);
+            Console.WriteLine("Datetime : " + _reminder.datetime.ToString(DateTimeSelector.dateFormat + " " + DateTimeSelector.timeFormat));
 
             //Console.WriteLine("Note : " +  noteInput);
-            if (!String.IsNullOrEmpty(_reminderInput.note))
+            if (!String.IsNullOrEmpty(_reminder.note))
             {
-                string[] sep = _reminderInput.note.Split('\n');
+                string[] sep = _reminder.note.Split('\n');
 
                 Console.WriteLine("Note : " + sep[0]);
                 for (int i = 1; i < sep.Length; i++)
@@ -53,15 +63,24 @@ namespace TodoListManager
             _madeError = false;
         }
 
-        private void ReminderCreation()
+        private bool AskConfirm()
         {
-            Console.WriteLine("-----Reminder Creation Menu-----");
+            Console.Clear();
+            Console.Write("Are you sure? (Enter -y to confirm) : ");
+            var confirm = Console.ReadLine();
+
+            return confirm == "-y";
+        }
+
+        private bool ReminderEdit()
+        {
+            Console.WriteLine("-----Reminder Editor Menu-----");
             Console.WriteLine("-t = Title of the List");
             Console.WriteLine("-n = Note the List");
             Console.WriteLine("-d = Date");
             Console.WriteLine("-p = Preview");
-            Console.WriteLine("-c = Confirm Creation");
-            Console.WriteLine("-b = Back");
+            Console.WriteLine("-c = Confirm Editing");
+            Console.WriteLine("-b = Cancel Editing");
             if (_madeError)
             {
                 Console.WriteLine("(INVALID OPTION)");
@@ -70,23 +89,32 @@ namespace TodoListManager
 
 
             string input = Console.ReadLine();
+
             switch (input)
             {
                 case "-b":
+                    
+                    if (AskConfirm())
+                    {
+                        _resultType = ResultType.Canceled;
+                        Console.WriteLine("\nDone! Press any key to continue.");
+                        Console.ReadKey();
+                        return false;
+                    }
                     _madeError = false;
                     break;
 
                 case "-n"://edit 
                     TextPrompt noteInputPrompt = new TextPrompt();
                     noteInputPrompt.Run();
-                    _reminderInput.note = noteInputPrompt.GetResult();
+                    _reminder.note = noteInputPrompt.GetResult();
                     _madeError = false;
                     break;
 
                 case "-t"://edit title
                     TextPrompt titleInputPrompt = new TextPrompt(true);
                     titleInputPrompt.Run();
-                    _reminderInput.title = titleInputPrompt.GetResult();
+                    _reminder.title = titleInputPrompt.GetResult();
                     _madeError = false;
                     break;
 
@@ -94,23 +122,20 @@ namespace TodoListManager
                     DateTimeSelector timeSelector = new DateTimeSelector();
                     timeSelector.Run();
                     if (!timeSelector.IsCanceled())
-                        _reminderInput.datetime = timeSelector.GetResult();
+                        _reminder.datetime = timeSelector.GetResult();
                     _madeError = false;
                     break;
 
-                //case "-c"://Confirm creation
-                //    Console.Clear();
-                //    Console.Write("Are you sure? (Press y to confirm) : ");
-                //    var confirm = Console.ReadKey(true);
-                //    if (confirm.Key == ConsoleKey.Y)
-                //    {
-                //        _reminders.Add(_reminderInput);
-                //        _reminderInput = new Reminder();
-                //        Console.WriteLine("\nDone! Press any key to continue.");
-                //        Console.ReadKey();
-                //    }
-                //    _madeError = false;
-                //    break;
+                case "-c"://Confirm creation
+                    if (AskConfirm())
+                    {
+                        _resultType = ResultType.Confirmed;
+                        Console.WriteLine("\nDone! Press any key to continue.");
+                        Console.ReadKey();
+                        return false;
+                    }
+                    _madeError = false;
+                    break;
 
                 case "-p":
                     PrintPreview();
@@ -121,6 +146,26 @@ namespace TodoListManager
                     _madeError = true;
                     break;
             }
+
+            return true;
+        }
+
+        public void Run()
+        {
+            while (ReminderEdit())
+            {
+                Console.Clear();
+            }
+        }
+
+        public Reminder GetResult()
+        {
+            return _reminder;
+        }
+        
+        public ResultType GetResultType()
+        {
+            return _resultType;
         }
     }
 }
