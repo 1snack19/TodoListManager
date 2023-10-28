@@ -3,48 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace TodoListManager
 {
-
-    enum ConsoleState
+    class ReminderEditor
     {
-        Main,
-        Creating,
-        Exit,
-    }
-
-    class Reminder
-    {
-        public Reminder()
-        {
-            note = "Empty";
-            title = "Untitled";
-            datetime = DateTime.Now;
-        }
-        public string note;
-        public string title;
-        public DateTime datetime;
-    }
-
-    class UserInterface
-    {
-
-        Reminder _reminderInput;
-
-        List<Reminder> _reminders;
-
-        public UserInterface()
-        {
-            _reminders = new List<Reminder>();
-            _reminderInput = new Reminder();
-        }
 
         bool _madeError = false;
 
-        ConsoleState _state = ConsoleState.Main;
-        
+        Reminder _reminderInput;
+
+        public ReminderEditor()
+        {
+            _reminderInput = new Reminder();
+        }
+
+        public ReminderEditor(Reminder reminderInput)
+        {
+            _reminderInput = reminderInput;
+        }
+
         private void PrintPreview()
         {
             Console.Clear();
@@ -74,26 +52,7 @@ namespace TodoListManager
             Console.Read();
             _madeError = false;
         }
-        private void MainUI()
-        {
-            Console.WriteLine("----Main Menu----");
-            Console.WriteLine("-c = Create a reminder");
-            Console.WriteLine("-q = Quit the program");
-            Console.Write("Enter an option: ");
-            string input = Console.ReadLine();
-            switch (input)
-            {
-                case "-c":
-                    _state = ConsoleState.Creating;
-                    break;
-                case "-q":
-                    _state = ConsoleState.Exit;
-                    break;
-                default:
-                    Console.WriteLine("Invalid option");
-                    break;
-            }
-        }
+
         private void ReminderCreation()
         {
             Console.WriteLine("-----Reminder Creation Menu-----");
@@ -114,7 +73,6 @@ namespace TodoListManager
             switch (input)
             {
                 case "-b":
-                    _state = ConsoleState.Main;
                     _madeError = false;
                     break;
 
@@ -140,19 +98,19 @@ namespace TodoListManager
                     _madeError = false;
                     break;
 
-                case "-c"://Confirm creation
-                    Console.Clear();
-                    Console.Write("Are you sure? (Press y to confirm) : ");
-                    var confirm = Console.ReadKey(true);
-                    if (confirm.Key == ConsoleKey.Y)
-                    {
-                        _reminders.Add(_reminderInput);
-                        _reminderInput = new Reminder();
-                        Console.WriteLine("\nDone! Press any key to continue.");
-                        Console.ReadKey();
-                    }
-                    _madeError = false;
-                    break;
+                //case "-c"://Confirm creation
+                //    Console.Clear();
+                //    Console.Write("Are you sure? (Press y to confirm) : ");
+                //    var confirm = Console.ReadKey(true);
+                //    if (confirm.Key == ConsoleKey.Y)
+                //    {
+                //        _reminders.Add(_reminderInput);
+                //        _reminderInput = new Reminder();
+                //        Console.WriteLine("\nDone! Press any key to continue.");
+                //        Console.ReadKey();
+                //    }
+                //    _madeError = false;
+                //    break;
 
                 case "-p":
                     PrintPreview();
@@ -164,30 +122,5 @@ namespace TodoListManager
                     break;
             }
         }
-        public void Run()
-        {
-            Console.WriteLine("-----Todo list manager-----");
-            bool running = true;
-            while (running)
-            {
-
-                Console.Clear();
-                switch (_state)
-                {
-                    case ConsoleState.Main:
-                        MainUI();
-                        break;
-                    case ConsoleState.Creating:
-                        ReminderCreation();
-                        break;
-                    case ConsoleState.Exit:
-                        Console.WriteLine("Exit!");
-                        running = false;
-                        break;
-                }
-            }
-
-        }
     }
-
 }
