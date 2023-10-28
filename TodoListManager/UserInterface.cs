@@ -26,6 +26,13 @@ namespace TodoListManager
     {
         Reminder _reminderInput;
 
+        public UserInterface()
+        {
+            _reminderInput.note = "Empty";
+            _reminderInput.title = "Untitled";
+            _reminderInput.datetime = DateTime.Now;
+        }
+
         bool _madeError = false;
 
         ConsoleState _state = ConsoleState.Main;
@@ -63,6 +70,7 @@ namespace TodoListManager
         {
             Console.WriteLine("----Main Menu----");
             Console.WriteLine("-c = Create a reminder");
+            Console.WriteLine("-q = Quit the program");
             Console.Write("Enter an option: ");
             string input = Console.ReadLine();
             switch (input)

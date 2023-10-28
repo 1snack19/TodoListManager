@@ -12,6 +12,17 @@ namespace TodoListManager
     {
         static public string dateFormat { get; private set; }
         static public string timeFormat { get; private set; }
+
+        static public void setDateFormat(string value)
+        {
+            dateFormat = value;
+        }
+
+        static public void setTimeFormat(string value)
+        {
+            timeFormat = value;
+        }
+
         bool _madeError = false;
 
         bool _canceled = false;
@@ -19,8 +30,6 @@ namespace TodoListManager
         DateTime _result;
         public DateTimeSelector() {
             _result = DateTime.MinValue;
-            dateFormat = "d/M/yyyy";
-            timeFormat = "HH:mm:ss";
         }
 
         public void Run()
@@ -28,7 +37,7 @@ namespace TodoListManager
             
             string[] formats = { timeFormat, dateFormat, dateFormat + " " + timeFormat };
 
-            while (true)//Get date
+            while (true)//Get datetime
             {
                 Console.Clear();
                 Console.WriteLine("-------Enter a datetime(In DD/MM/YYYY HH:MM:SS format. Enter nothing to cancel)-------");
