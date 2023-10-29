@@ -10,6 +10,7 @@ namespace TodoListManager
     class Program
     {
         static void Main(string[] args) {
+            Database.Init();
             DateTimeSelector.SetDateFormat("d/M/yyyy");
             DateTimeSelector.SetTimeFormat("HH:mm:ss");
 

@@ -29,6 +29,7 @@ namespace TodoListManager
                 Console.WriteLine("-----Todo list manager-----");
                 Console.WriteLine("----Main Menu----");
                 Console.WriteLine("-c = Create a reminder");
+                Console.WriteLine("-l = Show reminder list");
                 Console.WriteLine("-q = Quit the program");
 
                 if (_madeError )
@@ -46,7 +47,7 @@ namespace TodoListManager
                         editor.Run();
                         if (editor.GetResultType() == ReminderEditor.ResultType.Confirmed)
                         {
-                            _reminders.Add(editor.GetResult());
+                            Database.Instance.Add(editor.GetResult());
                             Console.WriteLine("Confirmed");
                         }
                         break;
@@ -54,6 +55,10 @@ namespace TodoListManager
                         Console.WriteLine("Exit!");
                         Console.ReadKey();
                         Environment.Exit(0);
+                        break;
+                    case "-l":
+                        ReminderListDisplay displayer = new ReminderListDisplay();
+                        displayer.Run();
                         break;
                     default:
                         _madeError = true;

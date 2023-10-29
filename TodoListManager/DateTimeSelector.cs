@@ -48,7 +48,10 @@ namespace TodoListManager
                     _madeError = false;
                 }
                 string input = Console.ReadLine().Trim();
-                if (String.IsNullOrEmpty(input)) break;
+                if (String.IsNullOrEmpty(input)) { 
+                    _canceled = true;
+                    break; 
+                }
 
                 DateTime date;
                 //USE THE METHOD ToLocalTime() WHEN YOU WANT TO DISPLAY INFORMATIONS ONLY. DO NOT USE IT IN ANY OTHER CIRCUMSTANCES. IT MAKES THINGS CONFUSING

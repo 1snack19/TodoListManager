@@ -38,9 +38,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database.cs" />
     <Compile Include="DateTimeSelector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ReminderEditor.cs" />
+    <Compile Include="ReminderListDisplay.cs" />
     <Compile Include="UserInterface.cs" />
     <Compile Include="TextEditor.cs" />
   </ItemGroup>

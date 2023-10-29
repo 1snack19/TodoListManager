@@ -15,6 +15,11 @@ namespace TodoListManager
             title = "Untitled";
             datetime = DateTime.Now;
         }
+
+        public override string ToString()
+        {
+            return title + "   |   " + datetime.ToString(DateTimeSelector.dateFormat + " " + DateTimeSelector.timeFormat);
+        }
         public string note;
         public string title;
         public DateTime datetime;
@@ -68,10 +73,6 @@ namespace TodoListManager
                 Console.WriteLine("Note : ");
             }
 
-            Console.WriteLine("-------------------------------------");
-            Console.Write("Press any key to return");
-            Console.Read();
-            _madeError = false;
         }
 
         private bool AskConfirm()
@@ -148,8 +149,10 @@ namespace TodoListManager
 
                     case "-p":
                         PrintPreview();
+                        Console.WriteLine("-------------------------------------");
+                        Console.Write("Press enter to return\n");
+                        Console.ReadLine();
                         break;
-
                     default:
                         _madeError = true;
                         break;

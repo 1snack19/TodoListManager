@@ -13,7 +13,6 @@ namespace TodoListManager
         string _text;
         public TextPrompt() { }
         
-        //public TextPrompt(string text) { _text = text;}
 
         public TextPrompt(bool singleline) { 
             _singleline = singleline;
