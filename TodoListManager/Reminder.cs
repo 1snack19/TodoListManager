@@ -13,7 +13,7 @@ namespace TodoListManager {
         }
 
         public override string ToString() {
-            return title + "   |   " + datetime.ToString(DateTimeSelector.DateFormat + " " + DateTimeSelector.TimeFormat);
+            return title + "   |   " + datetime.ToString(Misc.DateFormat + " " + Misc.TimeFormat);
         }
 
         public object Clone() {

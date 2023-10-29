@@ -14,13 +14,14 @@ namespace TodoListManager
         static void Main(string[] args) {
             Database.Init();
             Database.Instance.Load();
-            DateTimeSelector.SetDateFormat("d/M/yyyy");
-            DateTimeSelector.SetTimeFormat("HH:mm:ss");
-
-            new UserInterface().Run();
-
+            Misc.SetDateFormat("d/M/yyyy");
+            Misc.SetTimeFormat("HH:mm:ss");
+            try {
+                new ReminderManager().Run();
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
             Database.Instance.Save();
-
         }
     }
 }

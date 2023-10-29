@@ -55,13 +55,15 @@
   <ItemGroup>
     <Compile Include="Database.cs" />
     <Compile Include="DateTimeSelector.cs" />
+    <Compile Include="InteractiveMenu.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Reminder.cs" />
     <Compile Include="ReminderEditor.cs" />
     <Compile Include="ReminderListDisplay.cs" />
-    <Compile Include="UserInterface.cs" />
-    <Compile Include="TextEditor.cs" />
+    <Compile Include="ReminderManager.cs" />
+    <Compile Include="TestMenu.cs" />
+    <Compile Include="TextPrompt.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
