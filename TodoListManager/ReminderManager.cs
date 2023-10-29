@@ -15,7 +15,7 @@ namespace TodoListManager
             Misc.HeaderPrint("Main Menu");
             Console.WriteLine("-c = Create a reminder");
             Console.WriteLine("-l = Show reminder list");
-            Console.WriteLine("-q = Quit the program");
+            Console.WriteLine("-e = Exit the menu");
         }
 
         protected override void ProcessInput(string input) {
@@ -29,9 +29,7 @@ namespace TodoListManager
                         Console.WriteLine("Confirmed");
                     }
                     break;
-                case "-q":
-                    Console.WriteLine("Exit!");
-                    Console.ReadKey();
+                case "-e":
                     PlanExit();
                     break;
                 case "-l":

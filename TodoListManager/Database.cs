@@ -30,6 +30,11 @@ namespace TodoListManager
             return _reminders; 
         }
 
+        public int Count() 
+        { 
+            return _reminders.Count; 
+        }
+
         public void RemoveAt(int index)
         {
             _reminders.RemoveAt(index);

@@ -8,7 +8,7 @@ namespace TodoListManager {
     /*
      * Implemented menu will look like this:
      * 
-     * [Your print menu]
+     * [Your print menu (PrintMenu will be called here)]
      * [Error(s) will be printed here]
      * Enter an option : (This can be customized) [text input]
      * 

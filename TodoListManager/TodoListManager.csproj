@@ -53,6 +53,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DashBoard.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DateTimeSelector.cs" />
     <Compile Include="InteractiveMenu.cs" />
