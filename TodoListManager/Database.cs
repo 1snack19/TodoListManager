@@ -44,15 +44,10 @@ namespace TodoListManager
             _reminders.Add(item);
         }
 
-        //public List<Reminder> GetPage(int page, int pageSize)
-        //{
-        //    if (page <= 0 || pageSize  <= 0)
-        //    {
-        //        throw new ArgumentOutOfRangeException("Invalid page size: " + pageSize);
-        //    }
+        public void ReplaceAt(int index, Reminder item) {
+            _reminders[index] = item;
+        }
 
-        //    return new List<Reminder>();
-        //}
 
         public void LoadFromFile()
         {

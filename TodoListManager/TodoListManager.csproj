@@ -40,7 +40,9 @@
   <ItemGroup>
     <Compile Include="Database.cs" />
     <Compile Include="DateTimeSelector.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Reminder.cs" />
     <Compile Include="ReminderEditor.cs" />
     <Compile Include="ReminderListDisplay.cs" />
     <Compile Include="UserInterface.cs" />

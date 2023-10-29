@@ -10,17 +10,17 @@ namespace TodoListManager
 
     class DateTimeSelector
     {
-        static public string dateFormat { get; private set; }
-        static public string timeFormat { get; private set; }
+        static public string DateFormat { get; private set; }
+        static public string TimeFormat { get; private set; }
 
         static public void SetDateFormat(string value)
         {
-            dateFormat = value;
+            DateFormat = value;
         }
 
         static public void SetTimeFormat(string value)
         {
-            timeFormat = value;
+            TimeFormat = value;
         }
 
         bool _madeError = false;
@@ -35,7 +35,7 @@ namespace TodoListManager
         public void Run()
         {
             
-            string[] formats = { timeFormat, dateFormat, dateFormat + " " + timeFormat };
+            string[] formats = { TimeFormat, DateFormat, DateFormat + " " + TimeFormat };
 
             while (true)//Get datetime
             {
@@ -54,7 +54,7 @@ namespace TodoListManager
                 }
 
                 DateTime date;
-                //USE THE METHOD ToLocalTime() WHEN YOU WANT TO DISPLAY INFORMATIONS ONLY. DO NOT USE IT IN ANY OTHER CIRCUMSTANCES. IT MAKES THINGS CONFUSING
+                
                 if (DateTime.TryParseExact(input, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
                 {
                     if (date.TimeOfDay == TimeSpan.Zero)

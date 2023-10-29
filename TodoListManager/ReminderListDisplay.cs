@@ -10,6 +10,7 @@ namespace TodoListManager
     {
 
         bool _madeError = false;
+        string errorMessage = "(INVALID OPTION)";
 
         private void DisplayReminders()
         {
@@ -18,6 +19,18 @@ namespace TodoListManager
             {
                 Console.WriteLine(i + "." + r.ToString());
                 i++;
+            }
+        }
+
+        private void PlanError(string message) {
+            _madeError = true;
+            errorMessage = message;
+        }
+
+        private void TryPrintingError() {
+            if (_madeError) {
+                Console.WriteLine(errorMessage);
+                _madeError = false;
             }
         }
 
@@ -34,31 +47,81 @@ namespace TodoListManager
                 Console.WriteLine("-----------------------");
                 Console.WriteLine("-e N = Edit the N'th item");
                 Console.WriteLine("-d N = Delete the N'th item");
+                Console.WriteLine("-p N = Preview the N'th item");
                 Console.WriteLine("-b = Go back");
-                if (_madeError ) {
-                    Console.WriteLine("(INVALID OPTION)");
-                    _madeError = false;
-                }
+
+                TryPrintingError();
+
                 Console.Write("Enter an option: ");
 
                 string input = Console.ReadLine().Trim();
-                if (input.Length <= 0)
-                {
-                    _madeError = true;
+
+                string[] args = input.Split(' ');
+                if (args.Length <= 0) {
                     continue;
                 }
 
-                string[] args = input.Split(' ');
+                List<Reminder> reminders = Database.Instance.GetReminders();
 
-                switch (input)
-                {
-                    case "-b":
-                        return;
-                    case "-e":
+                if (args.Length == 1) {
+                    switch (args[0]) {
+                        case "-b":
+                            return;
+                        default:
+                            PlanError("(INVALID OPTION)");
+                            continue;
+                    } 
+                } else if (args.Length == 2) {
+                    int value;
+                    if (!int.TryParse(args[1], out value)) {
+                        PlanError("(INVALID VALUE)");
+                        continue;
+                    }
+                    switch (args[0]) {
+                        case "-e":
+                            value -= 1;
+                            reminders = Database.Instance.GetReminders();
+                            if (value > reminders.Count - 1 || value < 0) {
+                                PlanError("(ITEM DOES NOT EXIST)");
+                                continue;
+                            }
 
-                    default:
-                        _madeError = true;
-                        break;
+                            Reminder toEdit = (Reminder)reminders[value].Clone();
+
+                            ReminderEditor editor = new ReminderEditor(toEdit);//bring up the editing menu
+                            editor.Run();
+                            if (editor.GetResultType() == ReminderEditor.ResultType.Confirmed) {
+                                Database.Instance.ReplaceAt(value, editor.GetResult());
+                            }
+
+                            break;
+                        case "-d":
+                            value -= 1;
+                            if (value > reminders.Count - 1 || value < 0) {
+                                PlanError("(ITEM DOES NOT EXIST)");
+                                continue;
+                            }
+
+                            if (Misc.AskConfirm()) {
+                                Database.Instance.RemoveAt(value);
+                            }
+                            break;
+                        case "-p":
+                            value -= 1;
+                            if (value > reminders.Count - 1 || value < 0) {
+                                PlanError("(ITEM DOES NOT EXIST)");
+                                continue;
+                            }
+
+                            Misc.PrintReminderPreview(reminders[value]);
+                            Console.WriteLine("-------------------------------------");
+                            Console.Write("Press enter to return\n");
+                            Console.ReadLine();
+                            break;
+                        default:
+                            PlanError("(INVALID OPTION)");
+                            break;
+                    }
                 }
             }
         }

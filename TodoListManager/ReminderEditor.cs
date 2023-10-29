@@ -7,23 +7,7 @@ using System.Threading.Tasks;
 
 namespace TodoListManager
 {
-    class Reminder
-    {
-        public Reminder()
-        {
-            note = "Empty";
-            title = "Untitled";
-            datetime = DateTime.Now;
-        }
-
-        public override string ToString()
-        {
-            return title + "   |   " + datetime.ToString(DateTimeSelector.dateFormat + " " + DateTimeSelector.timeFormat);
-        }
-        public string note;
-        public string title;
-        public DateTime datetime;
-    }
+    
 
     class ReminderEditor
     {
@@ -37,51 +21,16 @@ namespace TodoListManager
 
         bool _madeError = false;
 
-        Reminder _reminder;
+        Reminder _editingReminder;
 
         public ReminderEditor()
         {
-            _reminder = new Reminder();
+            _editingReminder = new Reminder();
         }
 
         public ReminderEditor(Reminder reminderInput)
         {
-            _reminder = reminderInput;
-        }
-
-        private void PrintPreview()
-        {
-            Console.Clear();
-            Console.WriteLine("----Preview----");
-            Console.WriteLine("Title : " + _reminder.title);
-            Console.WriteLine("Datetime : " + _reminder.datetime.ToString(DateTimeSelector.dateFormat + " " + DateTimeSelector.timeFormat));
-
-            //Console.WriteLine("Note : " +  noteInput);
-            if (!String.IsNullOrEmpty(_reminder.note))
-            {
-                string[] sep = _reminder.note.Split('\n');
-
-                Console.WriteLine("Note : " + sep[0]);
-                for (int i = 1; i < sep.Length; i++)
-                {
-                    //                    Note : 
-                    Console.WriteLine("       " + sep[i]);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Note : ");
-            }
-
-        }
-
-        private bool AskConfirm()
-        {
-            Console.Clear();
-            Console.Write("Are you sure? (Enter -y to confirm) : ");
-            var confirm = Console.ReadLine();
-
-            return confirm == "-y";
+            _editingReminder = reminderInput;
         }
 
         public void Run()
@@ -109,7 +58,7 @@ namespace TodoListManager
                 switch (input)
                 {
                     case "-b":
-                        if (AskConfirm())
+                        if (Misc.AskConfirm())
                         {
                             _resultType = ResultType.Canceled;
                             Console.WriteLine("\nDone! Press any key to continue.");
@@ -118,27 +67,27 @@ namespace TodoListManager
                         }
                         break;
 
-                    case "-n"://edit 
+                    case "-n":
                         TextPrompt noteInputPrompt = new TextPrompt();
                         noteInputPrompt.Run();
-                        _reminder.note = noteInputPrompt.GetResult();
+                        _editingReminder.note = noteInputPrompt.GetResult();
                         break;
 
-                    case "-t"://edit title
+                    case "-t":
                         TextPrompt titleInputPrompt = new TextPrompt(true);
                         titleInputPrompt.Run();
-                        _reminder.title = titleInputPrompt.GetResult();
+                        _editingReminder.title = titleInputPrompt.GetResult();
                         break;
 
-                    case "-d"://edit date
+                    case "-d":
                         DateTimeSelector timeSelector = new DateTimeSelector();
                         timeSelector.Run();
                         if (!timeSelector.IsCanceled())
-                            _reminder.datetime = timeSelector.GetResult();
+                            _editingReminder.datetime = timeSelector.GetResult();
                         break;
 
-                    case "-c"://Confirm creation
-                        if (AskConfirm())
+                    case "-c":
+                        if (Misc.AskConfirm())
                         {
                             _resultType = ResultType.Confirmed;
                             Console.WriteLine("\nDone! Press any key to continue.");
@@ -148,7 +97,7 @@ namespace TodoListManager
                         break;
 
                     case "-p":
-                        PrintPreview();
+                        Misc.PrintReminderPreview(_editingReminder);
                         Console.WriteLine("-------------------------------------");
                         Console.Write("Press enter to return\n");
                         Console.ReadLine();
@@ -157,13 +106,12 @@ namespace TodoListManager
                         _madeError = true;
                         break;
                 }
-
             }
         }
 
         public Reminder GetResult()
         {
-            return _reminder;
+            return _editingReminder;
         }
         
         public ResultType GetResultType()
