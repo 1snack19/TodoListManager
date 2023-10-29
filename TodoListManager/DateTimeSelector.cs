@@ -13,12 +13,12 @@ namespace TodoListManager
         static public string dateFormat { get; private set; }
         static public string timeFormat { get; private set; }
 
-        static public void setDateFormat(string value)
+        static public void SetDateFormat(string value)
         {
             dateFormat = value;
         }
 
-        static public void setTimeFormat(string value)
+        static public void SetTimeFormat(string value)
         {
             timeFormat = value;
         }
@@ -43,7 +43,10 @@ namespace TodoListManager
                 Console.WriteLine("-------Enter a datetime(In DD/MM/YYYY HH:MM:SS format. Enter nothing to cancel)-------");
                 Console.WriteLine("* You can leave out date or time and the current date/time will be assumed as default.");
                 if (_madeError)
+                {
                     Console.WriteLine("(INVALID INPUT)");
+                    _madeError = false;
+                }
                 string input = Console.ReadLine().Trim();
                 if (String.IsNullOrEmpty(input)) break;
 
@@ -68,8 +71,6 @@ namespace TodoListManager
                 }
                
             }
-
-            _madeError = false;
 
         }
 

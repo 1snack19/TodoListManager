@@ -8,25 +8,6 @@ using Newtonsoft.Json;
 namespace TodoListManager
 {
 
-    enum ConsoleState
-    {
-        Main,
-        Creating,
-        Exit,
-    }
-
-    class Reminder
-    {
-        public Reminder()
-        {
-            note = "Empty";
-            title = "Untitled";
-            datetime = DateTime.Now;
-        }
-        public string note;
-        public string title;
-        public DateTime datetime;
-    }
 
     class UserInterface
     {
@@ -40,51 +21,42 @@ namespace TodoListManager
 
         bool _madeError = false;
 
-        ConsoleState _state = ConsoleState.Main;
-        
-        private void MainUI()
-        {
-            Console.WriteLine("----Main Menu----");
-            Console.WriteLine("-c = Create a reminder");
-            Console.WriteLine("-q = Quit the program");
-            Console.Write("Enter an option: ");
-            string input = Console.ReadLine();
-            switch (input)
-            {
-                case "-c":
-                    _state = ConsoleState.Creating;
-                    break;
-                case "-q":
-                    _state = ConsoleState.Exit;
-                    break;
-                default:
-                    Console.WriteLine("Invalid option");
-                    break;
-            }
-        }
         public void Run()
-        {
-            Console.WriteLine("-----Todo list manager-----");
-            bool running = true;
-            while (running)
+        { 
+            while (true)
             {
                 Console.Clear();
-                switch (_state)
+                Console.WriteLine("-----Todo list manager-----");
+                Console.WriteLine("----Main Menu----");
+                Console.WriteLine("-c = Create a reminder");
+                Console.WriteLine("-q = Quit the program");
+
+                if (_madeError )
                 {
-                    case ConsoleState.Main:
-                        MainUI();
-                        break;
-                    case ConsoleState.Creating:
+                    Console.WriteLine("(INVALID OPTION)");
+                    _madeError = false;
+                }
+
+                Console.Write("Enter an option: ");
+                string input = Console.ReadLine();
+                switch (input)
+                {
+                    case "-c":
                         ReminderEditor editor = new ReminderEditor();
                         editor.Run();
                         if (editor.GetResultType() == ReminderEditor.ResultType.Confirmed)
                         {
                             _reminders.Add(editor.GetResult());
+                            Console.WriteLine("Confirmed");
                         }
                         break;
-                    case ConsoleState.Exit:
+                    case "-q":
                         Console.WriteLine("Exit!");
-                        running = false;
+                        Console.ReadKey();
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        _madeError = true;
                         break;
                 }
             }
