@@ -6,13 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TodoListManager {
-    enum ContinueType {
-        Quit,
-        SwitchMenu,
-    }
+    
 
     class DashBoard {
-        
+
+        enum ContinueType {
+            Quit,
+            SwitchMenu,
+        }
+
+        private bool _update = false;
+
+        private bool CheckUpdate() {
+            if (_update) {
+                _update = false;
+            }
+            return true;
+        }
 
         public void Run() {
 
@@ -47,8 +57,11 @@ namespace TodoListManager {
             }
         }
 
-        public void DisplayLoop() {
+        private void UpdateLoop() {
 
+        }
+
+        private void DisplayLoop() {
             while (true) {
                 Console.Clear();
                 Misc.BigHeaderPrint("Dashboard");
@@ -56,14 +69,14 @@ namespace TodoListManager {
                 if (Database.Instance.Count() > 0) {
                     int i = 1;
                     foreach (Reminder r in Database.Instance.GetReminders()) {
-                        Console.WriteLine(i + "." + r.ToString() + "\n");
+                        Console.WriteLine(r.ToString() + "\n");
                         i++;
                     }
-                    Thread.Sleep(500);
+                    while (CheckUpdate());
                 } else {
                     Console.WriteLine("\n");
                     Console.WriteLine("Your list is empty! Switch over to the manager menu to create some!");
-                    Console.WriteLine("\n");
+                    Console.WriteLine("\n\n");
                     while (true);
                 }
                 
