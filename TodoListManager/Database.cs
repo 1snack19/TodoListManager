@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -49,14 +50,30 @@ namespace TodoListManager
         }
 
 
-        public void LoadFromFile()
+        public void Load()
         {
+            Console.Clear();
+            Console.WriteLine("Reading file");
+            if (!File.Exists(Misc.SAVE_FILE_NAME)) {
+                Console.WriteLine("Database file does not exist. Creating a new one.");
+                File.WriteAllText(Misc.SAVE_FILE_NAME, "");
+                return;
+            }
+            string readSerial = File.ReadAllText(Misc.SAVE_FILE_NAME);
+            Console.WriteLine("Deserializing");
+            List<Reminder> serialized = JsonConvert.DeserializeObject<List<Reminder>>(readSerial);
+            if (serialized != null) {
+                _reminders = serialized;
+            }
 
         }
 
-        public void SaveToFile() 
+        public void Save() 
         {
-
+            Console.Clear();
+            Console.WriteLine("Saving...");
+            string serial = JsonConvert.SerializeObject(_reminders);
+            File.WriteAllText(Misc.SAVE_FILE_NAME, serial);
         }
 
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace TodoListManager {
     static class Misc {
 
+        public static string SAVE_FILE_NAME = "objects.json";
         public static bool AskConfirm() {
             Console.Clear();
             Console.Write("Are you sure? (Enter -y to confirm) : ");

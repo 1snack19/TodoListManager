@@ -17,7 +17,7 @@ namespace TodoListManager
             int i = 1;
             foreach (Reminder r in Database.Instance.GetReminders())
             {
-                Console.WriteLine(i + "." + r.ToString());
+                Console.WriteLine(i + "." + r.ToString() + "\n");
                 i++;
             }
         }
@@ -40,11 +40,9 @@ namespace TodoListManager
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("-----Reminder List-----");
-                Console.WriteLine();
+                Console.WriteLine("-----Reminder List-----\n");
                 DisplayReminders();
-                Console.WriteLine();
-                Console.WriteLine("-----------------------");
+                Console.WriteLine("\n-----------------------");
                 Console.WriteLine("-e N = Edit the N'th item");
                 Console.WriteLine("-d N = Delete the N'th item");
                 Console.WriteLine("-p N = Preview the N'th item");
@@ -92,6 +90,7 @@ namespace TodoListManager
                             editor.Run();
                             if (editor.GetResultType() == ReminderEditor.ResultType.Confirmed) {
                                 Database.Instance.ReplaceAt(value, editor.GetResult());
+                                Database.Instance.Save();
                             }
 
                             break;
