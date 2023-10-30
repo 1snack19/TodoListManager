@@ -1,15 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace TodoListManager
 {
+
+    delegate void Alert();
+
     class Program
     {
 
