@@ -29,6 +29,7 @@ namespace TodoListManager {
         public void Run() {
 
             while (true) {
+                Console.CursorVisible = false;
                 Thread updateThread = new Thread(UpdateLoop);
                 Thread displayThread = new Thread(DisplayLoop);
                 displayThread.Start();
@@ -40,7 +41,7 @@ namespace TodoListManager {
                 
                 while (run) {//Wait for a keypress
                     if (Console.KeyAvailable) {
-                        ConsoleKeyInfo key = Console.ReadKey();
+                        ConsoleKeyInfo key = Console.ReadKey(true);
                         if (key.Key == ConsoleKey.S || key.Key == ConsoleKey.Q) {
                             if (key.Key == ConsoleKey.S) {
                                 ctype = ContinueType.SwitchMenu;
@@ -53,7 +54,7 @@ namespace TodoListManager {
                 displayThread.Abort();
                 updateThread.Abort();
                 Console.Clear();
-
+                Console.CursorVisible = true;
                 if (ctype == ContinueType.Quit) {
                     break;
                 } else if (ctype == ContinueType.SwitchMenu) {
