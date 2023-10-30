@@ -3,7 +3,6 @@ using System.Threading;
 
 namespace TodoListManager {
     
-
     class DashBoard {
 
         enum ContinueType {
@@ -16,15 +15,28 @@ namespace TodoListManager {
         private bool CheckUpdate() {
             if (_update) {
                 _update = false;
+                return false;
             }
             return true;
+        }
+
+
+
+        Action UpdateEvent = null;
+
+        public DashBoard() {
+            UpdateEvent += () => {
+                _update = true;
+            };
         }
 
         public void Run() {
 
             while (true) {
+                Thread updateThread = new Thread(UpdateLoop);
                 Thread displayThread = new Thread(DisplayLoop);
                 displayThread.Start();
+                updateThread.Start();
 
                 ContinueType ctype = ContinueType.Quit;
 
@@ -43,6 +55,7 @@ namespace TodoListManager {
                 }
 
                 displayThread.Abort();
+                updateThread.Abort();
                 Console.Clear();
 
                 if (ctype == ContinueType.Quit) {
@@ -54,7 +67,22 @@ namespace TodoListManager {
         }
 
         private void UpdateLoop() {
+            while (true) {
 
+                bool changed = false;
+                foreach (Reminder r in Database.Instance.GetReminders()) {
+                    if (r.datetime < DateTime.Now && !r.due) {
+                        r.due = true;
+                        changed = true;
+                    }
+                }
+
+                if (changed) {
+                    UpdateEvent?.Invoke();
+                }
+
+                Thread.Sleep(10);
+            }
         }
 
         private void DisplayLoop() {
@@ -65,17 +93,25 @@ namespace TodoListManager {
                 if (Database.Instance.Count() > 0) {
                     int i = 1;
                     foreach (Reminder r in Database.Instance.GetReminders()) {
-                        Console.WriteLine(r.ToString() + "\n");
+                        if (r.due) {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine($"{r} [DUE]");
+
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.White;
+                        } else {
+                            Console.WriteLine(r.ToString() + "\n");
+                        }
                         i++;
                     }
-                    while (CheckUpdate());
+                    while (CheckUpdate()) { Thread.Sleep(10); }
                 } else {
                     Console.WriteLine("\n");
                     Console.WriteLine("Your list is empty! Switch over to the manager menu to create some!");
                     Console.WriteLine("\n\n");
-                    while (true);
+                    while (true) { Thread.Sleep(10); };
                 }
-                
             }
         }
     }

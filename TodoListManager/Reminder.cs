@@ -17,6 +17,7 @@ namespace TodoListManager {
             nr.note = note;
             nr.title = title;
             nr.datetime = datetime;
+            nr.due = due;
             return nr;
 
         }
@@ -24,5 +25,6 @@ namespace TodoListManager {
         public string note;
         public string title;
         public DateTime datetime;
+        public bool due = false;
     }
 }

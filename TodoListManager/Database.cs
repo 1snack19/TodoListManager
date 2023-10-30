@@ -51,7 +51,6 @@ namespace TodoListManager
             _reminders[index] = item;
         }
 
-
         public void Load()
         {
             Console.Clear();

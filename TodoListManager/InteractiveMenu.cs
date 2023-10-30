@@ -11,6 +11,8 @@ namespace TodoListManager {
      */
 
     abstract class InteractiveMenu {
+
+
         private bool  _madeError = false;
         private string _errorMessage = "";
         private bool _running = true;
