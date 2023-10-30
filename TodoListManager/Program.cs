@@ -6,8 +6,6 @@ namespace TodoListManager
     class Program
     {
 
-        delegate void Alert();
-
         static void Main(string[] args) {
             Database.Init();
             Database.Instance.Load();

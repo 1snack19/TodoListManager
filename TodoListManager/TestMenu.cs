@@ -23,7 +23,7 @@ namespace TodoListManager {
 
             string[] args = m.Split(' ');
             switch (args.Length) {
-                case 1:
+                case 1://-[Option]
                     switch (args[0]) {
                         case "-c":
                             Console.Clear();
@@ -39,8 +39,7 @@ namespace TodoListManager {
                             return;
                     }
                     break;
-                case 2:
-
+                case 2://-[Option] [Argument 1]
                     double numberIn;
                     bool parseNumber = Double.TryParse(args[1], out numberIn);
 

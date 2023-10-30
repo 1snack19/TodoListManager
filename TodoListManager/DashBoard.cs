@@ -20,14 +20,10 @@ namespace TodoListManager {
             return true;
         }
 
-
-
-        Action UpdateEvent = null;
+        EventWaitHandle _displayUpdateFence;
 
         public DashBoard() {
-            UpdateEvent += () => {
-                _update = true;
-            };
+            _displayUpdateFence = new EventWaitHandle(false, EventResetMode.AutoReset);
         }
 
         public void Run() {
@@ -78,7 +74,7 @@ namespace TodoListManager {
                 }
 
                 if (changed) {
-                    UpdateEvent?.Invoke();
+                    _displayUpdateFence.Set();
                 }
 
                 Thread.Sleep(10);
@@ -101,16 +97,18 @@ namespace TodoListManager {
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ForegroundColor = ConsoleColor.White;
                         } else {
-                            Console.WriteLine(r.ToString() + "\n");
+                            Console.WriteLine(r.ToString());
                         }
                         i++;
                     }
-                    while (CheckUpdate()) { Thread.Sleep(10); }
+                    _displayUpdateFence.WaitOne();
                 } else {
                     Console.WriteLine("\n");
                     Console.WriteLine("Your list is empty! Switch over to the manager menu to create some!");
                     Console.WriteLine("\n\n");
-                    while (true) { Thread.Sleep(10); };
+                    while (true) { 
+                        Thread.Sleep(1000); 
+                    }
                 }
             }
         }
