@@ -18,7 +18,7 @@ namespace TodoListManager
         }
 
         protected override void PrintMenu() {
-            Misc.BigHeaderPrint("Enter a datetime(In DD/MM/YYYY (Gregorian Calendar) HH:MM:SS format. Enter nothing to cancel)");
+            Misc.BigHeaderPrint("Enter a datetime(In DD/MM/YYYY (Gregorian Calendar) HH:MM:SS (24 Hours) format. Enter nothing to dismiss)");
             Console.WriteLine("* You can leave out date or time and the current date/time will be assumed as default.");
             Console.WriteLine("\nExamples:");
             Console.WriteLine(" 10/30/2023");

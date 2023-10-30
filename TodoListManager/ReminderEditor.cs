@@ -60,13 +60,17 @@ namespace TodoListManager
                 case "-n":
                     TextPrompt noteInputPrompt = new TextPrompt();
                     noteInputPrompt.Run();
-                    _editingReminder.note = noteInputPrompt.GetResult();
+                    if (noteInputPrompt.GetResultType() == TextPrompt.ResultType.Confirmed) {
+                        _editingReminder.note = noteInputPrompt.GetResult();
+                    }
                     break;
 
                 case "-t":
                     TextPrompt titleInputPrompt = new TextPrompt(true);
                     titleInputPrompt.Run();
-                    _editingReminder.title = titleInputPrompt.GetResult();
+                    if (titleInputPrompt.GetResultType() == TextPrompt.ResultType.Confirmed) {
+                        _editingReminder.title = titleInputPrompt.GetResult();
+                    }
                     break;
 
                 case "-d":
