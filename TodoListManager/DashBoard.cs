@@ -3,12 +3,7 @@ using System.Threading;
 
 namespace TodoListManager {
     
-    class DashBoard {
-
-        enum ContinueType {
-            Quit,
-            SwitchMenu,
-        }
+    class DashBoard : InteractiveMenu {
 
 
         EventWaitHandle _displayUpdateFence;
@@ -17,27 +12,40 @@ namespace TodoListManager {
             _displayUpdateFence = new EventWaitHandle(false, EventResetMode.AutoReset);
         }
 
-        public void Run() {
+        public override void Run() {
 
             while (true) {
                 Console.CursorVisible = false;
                 Thread updateThread = new Thread(UpdateLoop);
                 Thread displayThread = new Thread(DisplayLoop);
+
                 displayThread.Start();
                 updateThread.Start();
 
-                ContinueType ctype = ContinueType.Quit;
-
                 bool run = true;
+
+                InteractiveMenu nextMenu = null;
+
+                void _PlanNextMenu(InteractiveMenu menu = null)
+                {
+                    run = false;
+                    nextMenu = menu;
+                }
                 
                 while (run) {//Wait for a keypress
                     if (Console.KeyAvailable) {
                         ConsoleKeyInfo key = Console.ReadKey(true);
-                        if (key.Key == ConsoleKey.S || key.Key == ConsoleKey.Q) {
-                            if (key.Key == ConsoleKey.S) {
-                                ctype = ContinueType.SwitchMenu;
-                            }
-                            run = false;
+                        switch (key.Key)
+                        {
+                            case ConsoleKey.S:
+                                _PlanNextMenu(new ReminderManager());
+                                break;
+                            case ConsoleKey.Q:
+                                _PlanNextMenu();
+                                break;
+                            case ConsoleKey.D:
+                                _PlanNextMenu(new QuickDeleteMenu());
+                                break;
                         }
                     }
                 }
@@ -46,11 +54,12 @@ namespace TodoListManager {
                 updateThread.Abort();
                 Console.Clear();
                 Console.CursorVisible = true;
-                if (ctype == ContinueType.Quit) {
+
+                if (nextMenu != null) 
+                    nextMenu.Run();
+                else
                     break;
-                } else if (ctype == ContinueType.SwitchMenu) {
-                    new ReminderManager().Run();
-                }
+                
             }
         }
 
@@ -77,7 +86,10 @@ namespace TodoListManager {
             while (true) {
                 Console.Clear();
                 Misc.BigHeaderPrint("Dashboard");
-                Console.WriteLine("* Press Q to exit the program. Press S to switch over to the manager menu.\n");
+                Console.WriteLine("* Press Q to exit the program. ");
+                Console.WriteLine("* Press S to switch over to the manager menu.");
+                Console.WriteLine("* Press D to quick delete items.");
+                Console.WriteLine("");
                 if (Database.Instance.Count() > 0) {
                     int i = 1;
                     foreach (Reminder r in Database.Instance.GetReminders()) {
@@ -85,6 +97,10 @@ namespace TodoListManager {
                             Console.BackgroundColor = ConsoleColor.Red;
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine($"{r} [DUE]");
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            
+                            Console.WriteLine("Note:  " + r.note);
 
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ForegroundColor = ConsoleColor.White;
@@ -95,14 +111,21 @@ namespace TodoListManager {
                     }
                     _displayUpdateFence.WaitOne();
                 } else {
-                    Console.WriteLine("\n");
-                    Console.WriteLine("Your list is empty! Switch over to the manager menu to create some!");
-                    Console.WriteLine("\n\n");
+                    Console.WriteLine("\nThe list is empty! Switch over to the manager menu to create some!\n\n");
                     while (true) { 
                         Thread.Sleep(1000); 
                     }
                 }
             }
+        }
+
+        protected override void PrintMenu()
+        {
+            
+        }
+        protected override void ProcessInput(string input)
+        {
+            
         }
     }
 }

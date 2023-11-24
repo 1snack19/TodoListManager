@@ -59,6 +59,7 @@
     <Compile Include="InteractiveMenu.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="QuickDeleteMenu.cs" />
     <Compile Include="Reminder.cs" />
     <Compile Include="ReminderEditor.cs" />
     <Compile Include="ReminderListDisplay.cs" />

@@ -13,8 +13,8 @@ namespace TodoListManager
             Misc.SetTimeFormat("HH:mm:ss");
 
             try {
-                DashBoard dashBoard = new DashBoard();
-                dashBoard.Run();
+                InteractiveMenu startmenu = new DashBoard();
+                startmenu.Run();
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
             }

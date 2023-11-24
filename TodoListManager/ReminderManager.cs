@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace TodoListManager
 {
@@ -11,8 +6,7 @@ namespace TodoListManager
     {
 
         protected override void PrintMenu() {
-            Misc.HeaderPrint("Todo list manager");
-            Misc.HeaderPrint("Main Menu");
+            Misc.HeaderPrint("Reminder manager");
             Console.WriteLine("c = Create a reminder");
             Console.WriteLine("l = Show reminder list");
             Console.WriteLine("e = Exit the menu");

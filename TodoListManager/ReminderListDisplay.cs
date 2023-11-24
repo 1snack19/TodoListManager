@@ -8,8 +8,15 @@ namespace TodoListManager
 
         private void DisplayReminders()
         {
+            var rlist = Database.Instance.GetReminders();
+            if (rlist.Count < 1)
+            {
+                Console.WriteLine("         Empty         ");
+                return;
+            }
+            
             int i = 1;
-            foreach (Reminder r in Database.Instance.GetReminders())
+            foreach (Reminder r in rlist)
             {
                 Console.WriteLine(i + "." + r.ToString() + "\n");
                 i++;

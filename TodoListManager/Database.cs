@@ -19,8 +19,7 @@ namespace TodoListManager
 
         List<Reminder> _reminders = new List<Reminder>();
 
-        Database() { }
-
+        private Database() { }
 
         public List<Reminder> GetReminders() 
         { 
@@ -54,14 +53,14 @@ namespace TodoListManager
         public void Load()
         {
             Console.Clear();
-            Console.WriteLine("Reading file");
+            Console.WriteLine("Reading file...");
             if (!File.Exists(Misc.SAVE_FILE_NAME)) {
                 Console.WriteLine("Database file does not exist. Creating a new one.");
                 File.WriteAllText(Misc.SAVE_FILE_NAME, "");
                 return;
             }
             string readSerial = File.ReadAllText(Misc.SAVE_FILE_NAME);
-            Console.WriteLine("Deserializing");
+            Console.WriteLine("Deserializing...");
             List<Reminder> serialized = JsonConvert.DeserializeObject<List<Reminder>>(readSerial);
             if (serialized != null) {
                 _reminders = serialized;
@@ -75,6 +74,7 @@ namespace TodoListManager
             Console.WriteLine("Saving...");
             string serial = JsonConvert.SerializeObject(_reminders);
             File.WriteAllText(Misc.SAVE_FILE_NAME, serial);
+            Console.WriteLine("Done!");
         }
 
 

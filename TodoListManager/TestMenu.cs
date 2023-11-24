@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TodoListManager {
     class TestMenu : InteractiveMenu {
@@ -12,10 +8,10 @@ namespace TodoListManager {
 
         protected override void PrintMenu() {
             Misc.HeaderPrint("Test Header");
-            Console.WriteLine("-c = Do something");
-            Console.WriteLine("-a N = Set A to N");
-            Console.WriteLine("-b N = Set B to N");
-            Console.WriteLine("-b = Exit");
+            Console.WriteLine("c = Do something");
+            Console.WriteLine("a N = Set A to N");
+            Console.WriteLine("b N = Set B to N");
+            Console.WriteLine("b = Exit");
         }
 
         protected override void ProcessInput(string m) {
@@ -25,13 +21,13 @@ namespace TodoListManager {
             switch (args.Length) {
                 case 1://-[Option]
                     switch (args[0]) {
-                        case "-c":
+                        case "c":
                             Console.Clear();
                             Console.WriteLine("The result is " + (_a + _b));
                             Console.Write("Press enter to return\n");
                             Console.ReadLine();
                             break;
-                        case "-b":
+                        case "b":
                             PlanExit();
                             return;
                         default:

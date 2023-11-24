@@ -10,6 +10,8 @@ namespace TodoListManager
             Canceled,
         };
 
+        bool _changed = false;
+
         ResultType _resultType = ResultType.Canceled;
 
 
@@ -38,17 +40,22 @@ namespace TodoListManager
 
         protected override void PrintMenu() {
             Misc.HeaderPrint("Reminder Editor Menu");
-            Console.WriteLine("t = Title of the List");
-            Console.WriteLine("n = Note the List");
-            Console.WriteLine("d = Date");
+            Console.WriteLine("t = Set title");
+            Console.WriteLine("n = Set note");
+            Console.WriteLine("d = Set due date");
             Console.WriteLine("p = Preview");
-            Console.WriteLine("c = Confirm Editing");
-            Console.WriteLine("b = Cancel Editing");
+            Console.WriteLine("c = Confirm editing");
+            Console.WriteLine("b = Cancel editing");
         }
 
         protected override void ProcessInput(string input) {
             switch (input) {
                 case "b":
+                    if (!_changed) {//Skip confirmation
+                        PlanExit();
+                        return; 
+                    }
+
                     if (Misc.AskConfirm()) {
                         _resultType = ResultType.Canceled;
                         Console.WriteLine("\nDone! Press any key to continue.");
@@ -63,6 +70,7 @@ namespace TodoListManager
                     noteInputPrompt.Run();
                     if (noteInputPrompt.GetResultType() == TextPrompt.ResultType.Confirmed) {
                         _editingReminder.note = noteInputPrompt.GetResult();
+                        _changed = true;
                     }
                     break;
 
@@ -71,14 +79,17 @@ namespace TodoListManager
                     titleInputPrompt.Run();
                     if (titleInputPrompt.GetResultType() == TextPrompt.ResultType.Confirmed) {
                         _editingReminder.title = titleInputPrompt.GetResult();
+                        _changed = true;
                     }
                     break;
 
                 case "d":
                     DateTimeSelector timeSelector = new DateTimeSelector();
                     timeSelector.Run();
-                    if (!timeSelector.IsCanceled())
+                    if (!timeSelector.IsCanceled()) {
                         _editingReminder.datetime = timeSelector.GetResult();
+                        _changed = true;
+                    }
                     break;
 
                 case "c":
