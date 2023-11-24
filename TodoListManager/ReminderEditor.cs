@@ -86,6 +86,7 @@ namespace TodoListManager
                         Console.WriteLine("\nDone! Press any key to continue.");
                         Console.ReadKey();
                         PlanExit();
+                        _editingReminder.due = false;
                         return;
                     }
                     break;
