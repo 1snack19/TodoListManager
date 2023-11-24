@@ -21,8 +21,8 @@ namespace TodoListManager
             Misc.BigHeaderPrint("Enter a datetime(In DD/MM/YYYY (Gregorian Calendar) HH:MM:SS (24 Hours) format. Enter nothing to dismiss)");
             Console.WriteLine("* You can leave out date or time and the current date/time will be assumed as default.");
             Console.WriteLine("\nExamples:");
-            Console.WriteLine(" 10/30/2023");
-            Console.WriteLine(" 1/30/2000 23:21:23");
+            Console.WriteLine(" 30/10/2023");
+            Console.WriteLine(" 14/1/2005 07:21:23");
             Console.WriteLine(" 05:21:03");
         }
 
