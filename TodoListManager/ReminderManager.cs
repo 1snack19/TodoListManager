@@ -13,14 +13,14 @@ namespace TodoListManager
         protected override void PrintMenu() {
             Misc.HeaderPrint("Todo list manager");
             Misc.HeaderPrint("Main Menu");
-            Console.WriteLine("-c = Create a reminder");
-            Console.WriteLine("-l = Show reminder list");
-            Console.WriteLine("-e = Exit the menu");
+            Console.WriteLine("c = Create a reminder");
+            Console.WriteLine("l = Show reminder list");
+            Console.WriteLine("e = Exit the menu");
         }
 
         protected override void ProcessInput(string input) {
             switch (input) {
-                case "-c":
+                case "c":
                     ReminderEditor editor = new ReminderEditor();
                     editor.Run();
                     if (editor.GetResultType() == ReminderEditor.ResultType.Confirmed) {
@@ -29,10 +29,10 @@ namespace TodoListManager
                         Console.WriteLine("Confirmed");
                     }
                     break;
-                case "-e":
+                case "e":
                     PlanExit();
                     break;
-                case "-l":
+                case "l":
                     ReminderListDisplay displayer = new ReminderListDisplay();
                     displayer.Run();
                     break;

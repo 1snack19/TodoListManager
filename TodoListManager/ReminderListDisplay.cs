@@ -20,10 +20,10 @@ namespace TodoListManager
             Console.WriteLine("-----Reminder List-----\n");
             DisplayReminders();
             Console.WriteLine("\n-----------------------");
-            Console.WriteLine("-e N = Edit the N'th item");
-            Console.WriteLine("-d N = Delete the N'th item");
-            Console.WriteLine("-p N = Preview the N'th item");
-            Console.WriteLine("-b = Go back");
+            Console.WriteLine("e N = Edit the N'th item");
+            Console.WriteLine("d N = Delete the N'th item");
+            Console.WriteLine("p N = Preview the N'th item");
+            Console.WriteLine("b = Go back");
         }
 
         protected override void ProcessInput(string input) {
@@ -36,7 +36,7 @@ namespace TodoListManager
 
             if (args.Length == 1) {
                 switch (args[0]) {
-                    case "-b":
+                    case "b":
                         PlanExit();
                         return;
                     default:
@@ -50,7 +50,7 @@ namespace TodoListManager
                     return;
                 }
                 switch (args[0]) {
-                    case "-e":
+                    case "e":
                         value -= 1;
                         reminders = Database.Instance.GetReminders();
                         if (value > reminders.Count - 1 || value < 0) {
@@ -68,7 +68,7 @@ namespace TodoListManager
                         }
 
                         break;
-                    case "-d":
+                    case "d":
                         value -= 1;
                         if (value > reminders.Count - 1 || value < 0) {
                             PlanError("(ITEM DOES NOT EXIST)");
@@ -79,7 +79,7 @@ namespace TodoListManager
                             Database.Instance.RemoveAt(value);
                         }
                         break;
-                    case "-p":
+                    case "p":
                         value -= 1;
                         if (value > reminders.Count - 1 || value < 0) {
                             PlanError("(ITEM DOES NOT EXIST)");

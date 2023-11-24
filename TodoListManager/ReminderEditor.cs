@@ -37,17 +37,17 @@ namespace TodoListManager
 
         protected override void PrintMenu() {
             Misc.HeaderPrint("Reminder Editor Menu");
-            Console.WriteLine("-t = Title of the List");
-            Console.WriteLine("-n = Note the List");
-            Console.WriteLine("-d = Date");
-            Console.WriteLine("-p = Preview");
-            Console.WriteLine("-c = Confirm Editing");
-            Console.WriteLine("-b = Cancel Editing");
+            Console.WriteLine("t = Title of the List");
+            Console.WriteLine("n = Note the List");
+            Console.WriteLine("d = Date");
+            Console.WriteLine("p = Preview");
+            Console.WriteLine("c = Confirm Editing");
+            Console.WriteLine("b = Cancel Editing");
         }
 
         protected override void ProcessInput(string input) {
             switch (input) {
-                case "-b":
+                case "b":
                     if (Misc.AskConfirm()) {
                         _resultType = ResultType.Canceled;
                         Console.WriteLine("\nDone! Press any key to continue.");
@@ -57,7 +57,7 @@ namespace TodoListManager
                     }
                     break;
 
-                case "-n":
+                case "n":
                     TextPrompt noteInputPrompt = new TextPrompt();
                     noteInputPrompt.Run();
                     if (noteInputPrompt.GetResultType() == TextPrompt.ResultType.Confirmed) {
@@ -65,7 +65,7 @@ namespace TodoListManager
                     }
                     break;
 
-                case "-t":
+                case "t":
                     TextPrompt titleInputPrompt = new TextPrompt(true);
                     titleInputPrompt.Run();
                     if (titleInputPrompt.GetResultType() == TextPrompt.ResultType.Confirmed) {
@@ -73,14 +73,14 @@ namespace TodoListManager
                     }
                     break;
 
-                case "-d":
+                case "d":
                     DateTimeSelector timeSelector = new DateTimeSelector();
                     timeSelector.Run();
                     if (!timeSelector.IsCanceled())
                         _editingReminder.datetime = timeSelector.GetResult();
                     break;
 
-                case "-c":
+                case "c":
                     if (Misc.AskConfirm()) {
                         _resultType = ResultType.Confirmed;
                         Console.WriteLine("\nDone! Press any key to continue.");
@@ -90,7 +90,7 @@ namespace TodoListManager
                     }
                     break;
 
-                case "-p":
+                case "p":
                     Misc.PrintReminderPreview(_editingReminder);
                     Console.WriteLine("-------------------------------------");
                     Console.Write("Press enter to return\n");

@@ -23,10 +23,10 @@ namespace TodoListManager {
 
         public static bool AskConfirm() {
             Console.Clear();
-            Console.Write("Are you sure? (Enter -y to confirm) : ");
+            Console.Write("Are you sure? (Enter y to confirm) : ");
             var confirm = Console.ReadLine();
 
-            return confirm == "-y";
+            return confirm == "y";
         }
 
         public static void PrintReminderPreview(Reminder r) {
