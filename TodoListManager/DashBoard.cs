@@ -10,15 +10,6 @@ namespace TodoListManager {
             SwitchMenu,
         }
 
-        private bool _update = false;
-
-        private bool CheckUpdate() {
-            if (_update) {
-                _update = false;
-                return false;
-            }
-            return true;
-        }
 
         EventWaitHandle _displayUpdateFence;
 
