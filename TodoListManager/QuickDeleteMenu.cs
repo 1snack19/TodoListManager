@@ -17,7 +17,7 @@ namespace TodoListManager
                 return;
             }
 
-            Console.WriteLine("* Choose an item to delete\n");
+            Console.WriteLine("* Choose an item to delete(Enter q to exit)\n");
             int i = 1;
             foreach (var r in rlist)
             {
@@ -38,7 +38,7 @@ namespace TodoListManager
 
         protected override void ProcessInput(string input)
         {
-            if (_listEmpty) {
+            if (_listEmpty || input.Equals("q")) {
                 PlanExit();
                 return;
             }
