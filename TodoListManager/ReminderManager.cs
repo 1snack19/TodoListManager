@@ -20,7 +20,6 @@ namespace TodoListManager
                     if (editor.GetResultType() == ReminderEditor.ResultType.Confirmed) {
                         Database.Instance.Add(editor.GetResult());
                         Database.Instance.Save();
-                        Console.WriteLine("Confirmed");
                     }
                     break;
                 case "e":
