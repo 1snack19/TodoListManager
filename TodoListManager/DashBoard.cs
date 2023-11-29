@@ -102,10 +102,10 @@ namespace TodoListManager {
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ForegroundColor = ConsoleColor.Green;
 
-                            if (!String.IsNullOrEmpty(r.note)) {
-                                Console.WriteLine("Note:  " + r.note);
-                            } else {
+                            if (String.IsNullOrEmpty(r.note)) {
                                 Console.WriteLine("Note:  (Empty)");
+                            } else {
+                                Console.WriteLine("Note:  " + r.note);
                             }
 
                             Console.BackgroundColor = ConsoleColor.Black;
