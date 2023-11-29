@@ -2,8 +2,9 @@
 
 namespace TodoListManager {
     class Reminder : ICloneable {
+
         public Reminder() {
-            note = "Empty";
+            note = "";
             title = "Untitled";
             datetime = DateTime.Now;
         }
@@ -19,7 +20,6 @@ namespace TodoListManager {
             nr.datetime = datetime;
             nr.due = due;
             return nr;
-
         }
 
         public string note;

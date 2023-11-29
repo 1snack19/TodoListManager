@@ -17,9 +17,11 @@ namespace TodoListManager
             Instance = new Database();
         }
 
-        List<Reminder> _reminders = new List<Reminder>();
+        List<Reminder> _reminders;
 
-        private Database() { }
+        private Database() { 
+            _reminders = new List<Reminder>();
+        }
 
         public List<Reminder> GetReminders() 
         { 
@@ -76,7 +78,6 @@ namespace TodoListManager
             File.WriteAllText(Misc.SAVE_FILE_NAME, serial);
             Console.WriteLine("Done!");
         }
-
 
     }
 }

@@ -41,7 +41,7 @@ namespace TodoListManager {
                     Console.WriteLine("       " + sep[i]);
                 }
             } else {
-                Console.WriteLine("Note : ");
+                Console.WriteLine("Note : (Empty)");
             }
 
         }

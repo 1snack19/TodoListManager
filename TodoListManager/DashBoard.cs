@@ -5,7 +5,6 @@ namespace TodoListManager {
     
     class DashBoard : InteractiveMenu {
 
-
         EventWaitHandle _displayUpdateFence;
 
         public DashBoard() {
@@ -94,13 +93,20 @@ namespace TodoListManager {
                     int i = 1;
                     foreach (Reminder r in Database.Instance.GetReminders()) {
                         if (r.due) {
+
                             Console.BackgroundColor = ConsoleColor.Red;
                             Console.ForegroundColor = ConsoleColor.White;
+
                             Console.WriteLine($"{r} [DUE]");
+
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ForegroundColor = ConsoleColor.Green;
-                            
-                            Console.WriteLine("Note:  " + r.note);
+
+                            if (!String.IsNullOrEmpty(r.note)) {
+                                Console.WriteLine("Note:  " + r.note);
+                            } else {
+                                Console.WriteLine("Note:  (Empty)");
+                            }
 
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ForegroundColor = ConsoleColor.White;
@@ -119,13 +125,7 @@ namespace TodoListManager {
             }
         }
 
-        protected override void PrintMenu()
-        {
-            
-        }
-        protected override void ProcessInput(string input)
-        {
-            
-        }
+        protected override void PrintMenu() { }
+        protected override void ProcessInput(string input) { }
     }
 }
