@@ -24,7 +24,7 @@ namespace TodoListManager
         }
 
         public List<Reminder> GetReminders() 
-        { 
+        {
             return _reminders; 
         }
 

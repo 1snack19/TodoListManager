@@ -93,7 +93,6 @@ namespace TodoListManager {
                     int i = 1;
                     foreach (Reminder r in Database.Instance.GetReminders()) {
                         if (r.due) {
-
                             Console.BackgroundColor = ConsoleColor.Red;
                             Console.ForegroundColor = ConsoleColor.White;
 
@@ -101,6 +100,7 @@ namespace TodoListManager {
 
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ForegroundColor = ConsoleColor.Green;
+
 
                             if (String.IsNullOrEmpty(r.note)) {
                                 Console.WriteLine("Note:  (Empty)");
@@ -111,7 +111,7 @@ namespace TodoListManager {
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ForegroundColor = ConsoleColor.White;
                         } else {
-                            Console.WriteLine(r.ToString());
+                            Console.WriteLine(r);
                         }
                         i++;
                     }

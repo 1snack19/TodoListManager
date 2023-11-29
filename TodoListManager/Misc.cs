@@ -21,7 +21,7 @@ namespace TodoListManager {
             Console.Clear();
             Console.Write("Are you sure? (Enter y to confirm) : ");
             var confirm = Console.ReadLine();
-
+            
             return confirm == "y";
         }
 
