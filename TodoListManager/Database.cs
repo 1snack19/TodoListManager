@@ -66,6 +66,8 @@ namespace TodoListManager
             List<Reminder> serialized = JsonConvert.DeserializeObject<List<Reminder>>(readSerial);
             if (serialized != null) {
                 _reminders = serialized;
+            } else {
+                throw new Exception("Couldn't deserialize json!");
             }
 
         }
