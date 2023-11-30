@@ -53,7 +53,7 @@ namespace TodoListManager
                 case "b":
                     if (!_changed) {//Skip confirmation
                         PlanExit();
-                        return; 
+                        return;
                     }
 
                     if (Misc.AskConfirm()) {
@@ -64,7 +64,6 @@ namespace TodoListManager
                         return;
                     }
                     break;
-
                 case "n":
                     TextPrompt noteInputPrompt = new TextPrompt();
                     noteInputPrompt.Run();

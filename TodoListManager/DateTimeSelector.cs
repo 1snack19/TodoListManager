@@ -9,7 +9,7 @@ namespace TodoListManager
 
         bool _canceled = false;
 
-        string[] _formats = { Misc.TimeFormat, Misc.DateFormat, Misc.DateFormat + " " + Misc.TimeFormat };
+        string[] _formats = { Misc.TimeFormat, Misc.DateFormat, Misc.DateFormat + " " + Misc.TimeFormat, Misc.TimeFormat + " " + Misc.DateFormat };
 
         DateTime _result;
         public DateTimeSelector() {
